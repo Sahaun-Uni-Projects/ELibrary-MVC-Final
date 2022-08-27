@@ -12,44 +12,44 @@
 
 @using (Html.BeginForm("UserUpdate", "Edit", new { id = Model.id }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
     <div class="row">
-        <div class="col-lg-2">Title</div>
+        <div class="col-lg-2">Email</div>
         <div class="col-lg-10">
             @Html.TextBoxFor(u => u.email)
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-lg-2">Title</div>
+        <div class="col-lg-2">Full Name</div>
         <div class="col-lg-10">
             @Html.TextBoxFor(u => u.fullname)
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-lg-2">Title</div>
+        <div class="col-lg-2">Address</div>
         <div class="col-lg-10">
             @Html.TextBoxFor(u => u.address_)
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-lg-2">Description</div>
+        <div class="col-lg-2">Phone</div>
         <div class="col-lg-10">
             @Html.TextAreaFor(u => u.phone)
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-lg-2">Description</div>
+        <div class="col-lg-2">Password</div>
         <div class="col-lg-10">
             @Html.TextAreaFor(u => u.pass)
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-lg-2">Description</div>
+        <div class="col-lg-2">Joining Date</div>
         <div class="col-lg-10">
-            @Html.TextAreaFor(u => u.joindate, new { @disabled = "disabled" })
+            @Html.TextBoxFor(u => u.joindate, "{0:MM/dd/yyyy}", new { @disabled = "disabled", @id = "datepicker" })
         </div>
     </div>
     <br />
