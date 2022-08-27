@@ -1,8 +1,50 @@
 ﻿@model ELibrary.Models.User
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Welcome, @Model.fullname</h2>
+
+@using (Html.BeginForm("UserUpdate", "Profile", new { id = Model.id }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    <div class="row">
+        <div class="col-lg-2">Email</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(u => u.email, new { @disabled = "disabled" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Full Name</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(u => u.fullname)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Address</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(u => u.address_)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Phone</div>
+        <div class="col-lg-10">
+            @Html.TextAreaFor(u => u.phone)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Password</div>
+        <div class="col-lg-10">
+            @Html.PasswordFor(u => u.pass)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+    <br />
+}

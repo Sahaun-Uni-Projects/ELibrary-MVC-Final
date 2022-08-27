@@ -46,6 +46,7 @@ namespace ELibrary.Controllers
                 db.PurchaseRecords.Add(record);
                 db.SaveChanges();
             }
+            ((Cart)Session["cart"]).Clear();
             return RedirectToAction("Index");
         }
     }

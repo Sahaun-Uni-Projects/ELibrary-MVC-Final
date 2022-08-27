@@ -13,7 +13,19 @@ namespace ELibrary.Controllers
         // GET: Book
         public ActionResult Index(int? id) {
             Book book = db.Books.FirstOrDefault(b => b.id == id);
-            return ((book == null) ? (ActionResult)HttpNotFound() : View(book));
+            if (book == null) return (ActionResult)HttpNotFound();
+
+            BookRecord record = db.BookRecords.FirstOrDefault(b => b.Book1.id == id);
+            ViewBag.record = record;
+
+            return View(book);
+        }
+
+        public ActionResult AddToCart(int id) {
+            Cart cart = (Cart)Session["cart"];
+            Book book = db.Books.FirstOrDefault(b => b.id == id);
+            cart.AddCartItem(book, 1);
+            return RedirectToAction("Index", new { id = id });
         }
     }
 }

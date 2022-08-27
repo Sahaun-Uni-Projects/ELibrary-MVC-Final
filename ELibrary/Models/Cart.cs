@@ -59,5 +59,9 @@ namespace ELibrary.Models {
             }
             return cost;
         }
+
+        public void Clear() {
+            CartItems.Clear();
+        }
     }
 }

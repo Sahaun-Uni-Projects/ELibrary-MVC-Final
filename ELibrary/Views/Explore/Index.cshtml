@@ -40,7 +40,7 @@
             </td>
             @if (sessionUser != null) {
                 <td>
-                    @Html.ActionLink("Add to Cart", "AddToCart", "Explore", new { id = book.id }, null)
+                    <a class="btn btn-primary" role="button" href="Explore/AddToCart/@book.id">Add to Cart</a>
                 </td>
             }
         </tr>
