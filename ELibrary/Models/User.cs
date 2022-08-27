@@ -14,13 +14,13 @@ namespace ELibrary.Models
     
     public partial class User
     {
-        public string user_email { get; set; }
-        public string user_password { get; set; }
-        public Nullable<System.DateTime> user_joindate { get; set; }
-        public string user_fullname { get; set; }
-        public string user_phone { get; set; }
-        public string user_address { get; set; }
-        public string user_image { get; set; }
-        public Nullable<int> user_type { get; set; }
+        public string email { get; set; }
+        public string pass { get; set; }
+        public Nullable<System.DateTime> joindate { get; set; }
+        public string fullname { get; set; }
+        public string phone { get; set; }
+        public string address_ { get; set; }
+        public string image_ { get; set; }
+        public Nullable<int> type_ { get; set; }
     }
 }

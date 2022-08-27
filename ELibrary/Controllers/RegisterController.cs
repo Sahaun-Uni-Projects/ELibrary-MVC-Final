@@ -21,14 +21,14 @@ namespace ELibrary.Controllers
         {
             if (ModelState.IsValid) {
                 try {
-                    if (String.IsNullOrEmpty(user.user_email) || String.IsNullOrEmpty(user.user_password) || String.IsNullOrEmpty(user.user_fullname)) {
+                    if (String.IsNullOrEmpty(user.email) || String.IsNullOrEmpty(user.pass) || String.IsNullOrEmpty(user.fullname)) {
                         throw new Exception("Fields can not be empty");
-                    } else if (!user.user_email.Contains("@") || !user.user_email.Contains(".com")) {
+                    } else if (!user.email.Contains("@") || !user.email.Contains(".com")) {
                         throw new Exception("Invalid email");
                     }
 
-                    user.user_email = user.user_email.ToLower();
-                    User userCheck = db.Users.FirstOrDefault(u => u.user_email == user.user_email);
+                    user.email = user.email.ToLower();
+                    User userCheck = db.Users.FirstOrDefault(u => u.email == user.email);
                     if (userCheck != null) {
                         TempData["alert"] = "Email exists already";
                         return RedirectToAction("Index", "Login");

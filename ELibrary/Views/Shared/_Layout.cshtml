@@ -7,6 +7,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @Html.Partial("_Favicon")
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -25,13 +27,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Explore", "Index", "Explore")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
 
                 <ul class="nav navbar-nav float-right pull-right">
                     <li class="nav-item dropdown">
-                        @if (Session["user"] == null) {
+                        @if (sessionUser == null) {
                             <a class="dropdown-toggle" href="#" id="nav-profile-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Profile
                             </a>
@@ -41,7 +43,7 @@
                             </ul>
                         } else {
                             <a class="dropdown-toggle" href="#" id="nav-profile-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @sessionUser.user_fullname
+                                @sessionUser.fullname
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li class="dropdown-item" type="button">@Html.ActionLink("Profile", "Index", "Profile")</li>

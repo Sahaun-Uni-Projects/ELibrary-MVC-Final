@@ -19,8 +19,8 @@ namespace ELibrary.Controllers
         public ActionResult Index(User user) {
             if (ModelState.IsValid) {
                 try {
-                    user.user_email = user.user_email.ToLower();
-                    User userCheck = db.Users.FirstOrDefault(u => (u.user_email == user.user_email) && (u.user_password == user.user_password));
+                    user.email = user.email.ToLower();
+                    User userCheck = db.Users.FirstOrDefault(u => (u.email == user.email) && (u.pass == user.pass));
                     if (userCheck == null) {
                         throw new Exception("Credentials do not match");
                     } else {

@@ -1,0 +1,25 @@
+﻿@model ELibrary.Models.Author
+
+@{
+    ViewBag.Title = $"{Model.name}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.name</h2>
+<p>@Model.details</p>
+
+@{
+    var books = (new ELibrary.Models.ELibraryEntities()).Books.ToList();
+}
+
+<p>
+    Books by this author:
+    <ul>
+        @foreach (var book in books) {
+            
+            if (book.Author1.id == Model.id) {
+                <li>@Html.ActionLink($"{book.name}", "Index", "Book", new { id = book.id }, null)</li>
+            }
+        }
+    </ul>
+</p>

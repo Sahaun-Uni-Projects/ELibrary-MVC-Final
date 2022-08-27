@@ -12,19 +12,12 @@ namespace ELibrary.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Author
+    public partial class FeaturedBook
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Author()
-        {
-            this.Books = new HashSet<Book>();
-        }
-    
         public int id { get; set; }
-        public string name { get; set; }
-        public string details { get; set; }
+        public int book { get; set; }
+        public Nullable<System.DateTime> date_ { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual Book Book1 { get; set; }
     }
 }

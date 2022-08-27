@@ -27,6 +27,7 @@ namespace ELibrary.Models
     
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<FeaturedBook> FeaturedBooks { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

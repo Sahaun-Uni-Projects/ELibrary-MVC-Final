@@ -14,13 +14,21 @@ namespace ELibrary.Models
     
     public partial class Book
     {
-        public int book_id { get; set; }
-        public string book_name { get; set; }
-        public string book_desc { get; set; }
-        public string book_cover { get; set; }
-        public Nullable<int> author_id { get; set; }
-        public Nullable<int> book_category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Book()
+        {
+            this.FeaturedBooks = new HashSet<FeaturedBook>();
+        }
     
-        public virtual Author Author { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string details { get; set; }
+        public string cover { get; set; }
+        public int author { get; set; }
+        public Nullable<int> category { get; set; }
+    
+        public virtual Author Author1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeaturedBook> FeaturedBooks { get; set; }
     }
 }

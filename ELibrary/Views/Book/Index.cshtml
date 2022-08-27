@@ -1,0 +1,12 @@
+﻿@model ELibrary.Models.Book
+
+@{
+    ViewBag.Title = $"{Model.name}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<img src="~/Images/Books/@Model.cover" width="300" class="center-block" style="margin-top:20px" />
+<h2>@Model.name</h2>
+<h4>@Html.ActionLink($"{@Model.Author1.name}", "Index", "Author", new { id = @Model.Author1.id }, null)</h4>
+<p>@Model.details</p>
+<p>Price | Add to Cart | Favorite </p>
