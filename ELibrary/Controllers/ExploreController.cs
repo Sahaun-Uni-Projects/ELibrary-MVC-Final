@@ -31,9 +31,22 @@ namespace ELibrary.Controllers
                 default: break;
             }
 
+            List<BookRecord> records = new List<BookRecord>();
+            foreach (Book book in books) {
+                records.Add(db.BookRecords.FirstOrDefault(b => b.Book1.id == book.id));
+            }
+            ViewBag.records = records;
+
             return View(new BookList() {
                 Books = books
             });
+        }
+
+        public ActionResult AddToCart(int id) {
+            Cart cart = (Cart)Session["cart"];
+            Book book = db.Books.FirstOrDefault(b => b.id == id);
+            cart.AddCartItem(book, 1);
+            return RedirectToAction("Index");
         }
     }
 }

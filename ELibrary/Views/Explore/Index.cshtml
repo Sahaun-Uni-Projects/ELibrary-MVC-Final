@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Explore";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<ELibrary.Models.BookRecord> records = ViewBag.records;
+    var sessionUser = (ELibrary.Models.User)Session["user"];
 }
 
 <h2>Explore</h2>
@@ -19,11 +22,27 @@
                 <h3>@Html.ActionLink($"{book.name}", "Index", "Book", new { id = book.id }, null)</h3>
                 <h4>@Html.ActionLink($"{book.Author1.name}", "Index", "Author", new { id = book.Author1.id }, null)</h4>
                 <p>@book.details</p>
-            </td>
-            <td>
-                <a href="@Url.Action("Buy", "Cart", new { id = book.id })">Add To Cart</a>
-            </td>
 
+                @{
+                    ELibrary.Models.BookRecord curr = null;
+                    foreach (ELibrary.Models.BookRecord record in records) {
+                        if (record.Book1.id == book.id) {
+                            curr = record;
+                            break;
+                        }
+                    }
+
+                    if (curr != null) {
+                        <p> Price: Tk @curr.price </p>
+                        <p> Quantity: @curr.quantity pcs</p>
+                    }
+                }
+            </td>
+            @if (sessionUser != null) {
+                <td>
+                    @Html.ActionLink("Add to Cart", "AddToCart", "Explore", new { id = book.id }, null)
+                </td>
+            }
         </tr>
     }
 </table>

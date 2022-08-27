@@ -1,0 +1,72 @@
+﻿@model ELibrary.Models.PurchaseInfo
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var cart = (ELibrary.Models.Cart)Session["cart"];
+    int counter = 0;
+}
+
+<h2>Cart</h2>
+
+@using (Html.BeginForm("Validate", "Cart", new { info = Model }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    if (cart.CartItems.Count == 0) {
+        <div>
+            Cart is empty
+        </div>
+    } else {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ELibrary.Models.CartItem item in cart.CartItems) {
+                    <tr>
+                        @{ ++counter; }
+                        <th scope="row">@counter</th>
+                        @{ --counter; }
+
+                        <td>@item.book.name</td>
+                        <td>@item.book.Author1.name</td>
+                        <td>
+                            @item.quantity
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="/Cart/Add/@counter">+</a>
+                            <a class="btn btn-primary" href="/Cart/Subtract/@counter">-</a>
+                            <a class="btn btn-primary" href="/Cart/Remove/@counter">Remove</a>
+                        </td>
+                        @{ ++counter; }
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="container">
+            <div class="row">
+                <a class="btn btn-primary" href="/Cart/Index">Update</a>
+            </div>
+            <br />
+            <div class="row">
+                Please send Tk.@cart.GetCost() to 01XXXXXXXXXX using bKash and add the transaction ID
+            </div>
+            <br />
+            <div class="row">
+                @Html.TextBoxFor(m => m.trxID)
+            </div>
+            <br />
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+            <br />
+        </div>
+    }
+}

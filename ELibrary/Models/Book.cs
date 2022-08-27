@@ -18,6 +18,9 @@ namespace ELibrary.Models
         public Book()
         {
             this.FeaturedBooks = new HashSet<FeaturedBook>();
+            this.BookRecords = new HashSet<BookRecord>();
+            this.FavoriteBooks = new HashSet<FavoriteBook>();
+            this.PurchaseRecordBooks = new HashSet<PurchaseRecordBook>();
         }
     
         public int id { get; set; }
@@ -30,5 +33,11 @@ namespace ELibrary.Models
         public virtual Author Author1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeaturedBook> FeaturedBooks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookRecord> BookRecords { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FavoriteBook> FavoriteBooks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurchaseRecordBook> PurchaseRecordBooks { get; set; }
     }
 }

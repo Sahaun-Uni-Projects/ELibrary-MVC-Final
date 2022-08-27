@@ -23,6 +23,7 @@ namespace ELibrary.Controllers
                     if (userCheck == null) {
                         throw new Exception("Credentials do not match");
                     } else {
+                        Session["cart"] = new Cart();
                         Session["user"] = userCheck;
                         return RedirectToAction("Index", "Profile");
                     }

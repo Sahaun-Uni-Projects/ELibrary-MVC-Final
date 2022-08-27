@@ -29,5 +29,9 @@ namespace ELibrary.Models
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<FeaturedBook> FeaturedBooks { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<BookRecord> BookRecords { get; set; }
+        public virtual DbSet<FavoriteBook> FavoriteBooks { get; set; }
+        public virtual DbSet<PurchaseRecord> PurchaseRecords { get; set; }
+        public virtual DbSet<PurchaseRecordBook> PurchaseRecordBooks { get; set; }
     }
 }

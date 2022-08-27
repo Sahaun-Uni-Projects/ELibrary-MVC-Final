@@ -12,28 +12,23 @@ namespace ELibrary.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class PurchaseRecord
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public PurchaseRecord()
         {
-            this.FavoriteBooks = new HashSet<FavoriteBook>();
-            this.PurchaseRecords = new HashSet<PurchaseRecord>();
+            this.PurchaseRecordBooks = new HashSet<PurchaseRecordBook>();
         }
     
         public int id { get; set; }
-        public string email { get; set; }
-        public string pass { get; set; }
-        public Nullable<System.DateTime> joindate { get; set; }
-        public string fullname { get; set; }
-        public string phone { get; set; }
+        public Nullable<int> user_ { get; set; }
+        public Nullable<System.DateTime> date_ { get; set; }
+        public string trx { get; set; }
         public string address_ { get; set; }
-        public string image_ { get; set; }
-        public Nullable<int> type_ { get; set; }
+        public Nullable<int> confirmed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FavoriteBook> FavoriteBooks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchaseRecord> PurchaseRecords { get; set; }
+        public virtual ICollection<PurchaseRecordBook> PurchaseRecordBooks { get; set; }
+        public virtual User User { get; set; }
     }
 }

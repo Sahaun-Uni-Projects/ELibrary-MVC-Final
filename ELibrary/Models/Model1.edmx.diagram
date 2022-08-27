@@ -11,6 +11,16 @@
         <EntityTypeShape EntityType="ELibraryModel.User" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="ELibraryModel.FK_author" ManuallyRouted="false" />
         <AssociationConnector Association="ELibraryModel.FK_book" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ELibraryModel.BookRecord" Width="1.5" PointX="7.625" PointY="1.125" />
+        <EntityTypeShape EntityType="ELibraryModel.FavoriteBook" Width="1.5" PointX="8.25" PointY="3.375" />
+        <AssociationConnector Association="ELibraryModel.FK_book1" />
+        <AssociationConnector Association="ELibraryModel.FK_book2" />
+        <AssociationConnector Association="ELibraryModel.FK_user" />
+        <EntityTypeShape EntityType="ELibraryModel.PurchaseRecord" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="ELibraryModel.PurchaseRecordBook" Width="1.5" PointX="8.25" PointY="6.25" />
+        <AssociationConnector Association="ELibraryModel.FK_book3" />
+        <AssociationConnector Association="ELibraryModel.FK_record" />
+        <AssociationConnector Association="ELibraryModel.FK_user1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
