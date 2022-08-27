@@ -1,0 +1,74 @@
+﻿@model ELibrary.Models.Book
+
+@{
+    ViewBag.Title = "Edit Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new ELibrary.Models.ELibraryEntities();
+    var books = db.Books.ToList();
+    var authors = db.Authors.ToList();
+}
+
+<h2>@Model.name</h2>
+
+@using (Html.BeginForm("BookUpdate", "Edit", new { id = Model.id }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    var authorList = new List<SelectListItem>();
+    foreach (ELibrary.Models.Author author in authors) {
+        authorList.Add(
+            new SelectListItem() {
+                Text = author.name,
+                Value = Convert.ToString(author.id)
+            }
+        );
+    }
+
+    <div class="row">
+        <div class="col-lg-2">Title</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(Book => Book.name)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Author</div>
+        <div class="col-lg-10">
+            @Html.DropDownListFor(b => b.author, authorList)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Description</div>
+        <div class="col-lg-10">
+            @Html.TextAreaFor(b => b.details)
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+    <br />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ELibrary.Models.Book book in books) {
+                <tr>
+                    <th scope="row">@book.id</th>
+                    <td>@book.name</td>
+                    <td>@book.Author1.name</td>
+                    <td>
+                        <a class="btn btn-primary" href="/Edit/Book/@book.id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

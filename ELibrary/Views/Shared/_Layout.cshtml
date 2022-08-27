@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @Html.Partial("_Favicon")
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -34,7 +34,24 @@
                 <ul class="nav navbar-nav float-right pull-right">
                     @if ((sessionUser != null) && (sessionUser.type_ == 1)) {
                         <li class="nav-item dropdown">
-                            @Html.ActionLink("Edit", "Index", "Edit")
+                            <a class="dropdown-toggle" href="#" id="nav-add-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Books", "Book", "Add")</li>
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Authors", "Author", "Add")</li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="#" id="nav-edit-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Books", "Book", "Edit")</li>
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Authors", "Author", "Edit")</li>
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Users", "User_", "Edit")</li>
+                            </ul>
                         </li>
                     }
                     <li class="nav-item dropdown">
@@ -64,7 +81,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - ELibrary</p>
         </footer>
     </div>
 

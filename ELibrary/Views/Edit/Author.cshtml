@@ -1,0 +1,54 @@
+﻿@model ELibrary.Models.Author
+
+@{
+    ViewBag.Title = "Edit Author";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new ELibrary.Models.ELibraryEntities();
+    var authors = db.Authors.ToList();
+}
+
+<h2>@Model.name</h2>
+
+@using (Html.BeginForm("AuthorUpdate", "Edit", new { id = Model.id }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    <div class="row">
+        <div class="col-lg-2">Title</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(a => a.name)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Description</div>
+        <div class="col-lg-10">
+            @Html.TextAreaFor(a => a.details)
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+    <br />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ELibrary.Models.Author author in authors) {
+                <tr>
+                    <th scope="row">@author.id</th>
+                    <td>@author.name</td>
+                    <td>
+                        <a class="btn btn-primary" href="/Edit/Author/@author.id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
