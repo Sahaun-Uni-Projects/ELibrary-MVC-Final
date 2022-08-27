@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Records";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var records = (List<ELibrary.Models.PurchaseRecord>)ViewBag.records;
+    int counter = 0;
+}
+
+<h2>Records</h2>
+
+@using (Html.BeginForm("Validate", "Record", new { info = Model }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    if (records.Count == 0) {
+        <div>
+            No pending purchase records
+        </div>
+    } else {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">TrxID</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ELibrary.Models.PurchaseRecord record in records) {
+                    if (record.confirmed == 0) {
+                        <tr>
+                            @{ ++counter; }
+                            <th scope="row">@counter</th>
+                            @{ --counter; }
+
+                            <td>@record.User.email</td>
+                            <td>@record.date_</td>
+                            <td>@record.price</td>
+                            <td>@record.trx</td>
+
+                            <td>
+                                <a class="btn btn-primary" href="/Record/Confirm/@record.id">Confirm</a>
+                                <a class="btn btn-primary" href="/Record/Delete/@record.id">Delete</a>
+                            </td>
+                            @{ ++counter; }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}

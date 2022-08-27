@@ -17,8 +17,8 @@ namespace ELibrary.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
-            this.FeaturedBooks = new HashSet<FeaturedBook>();
             this.BookRecords = new HashSet<BookRecord>();
+            this.FeaturedBooks = new HashSet<FeaturedBook>();
             this.FavoriteBooks = new HashSet<FavoriteBook>();
             this.PurchaseRecordBooks = new HashSet<PurchaseRecordBook>();
         }
@@ -32,9 +32,9 @@ namespace ELibrary.Models
     
         public virtual Author Author1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FeaturedBook> FeaturedBooks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookRecord> BookRecords { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeaturedBook> FeaturedBooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FavoriteBook> FavoriteBooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

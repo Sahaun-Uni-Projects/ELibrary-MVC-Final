@@ -4,23 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="70c2846d3ca94e6db273d33e28034e82" Name="Diagram1">
-        <EntityTypeShape EntityType="ELibraryModel.Author" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ELibraryModel.Book" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ELibraryModel.FeaturedBook" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ELibraryModel.User" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="4cbfde8c65da40349144ac2160facd44" Name="Diagram1">
+        <EntityTypeShape EntityType="ELibraryModel.Author" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELibraryModel.BookRecord" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELibraryModel.Book" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELibraryModel.FavoriteBook" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELibraryModel.FeaturedBook" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELibraryModel.PurchaseRecord" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELibraryModel.User" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
         <AssociationConnector Association="ELibraryModel.FK_author" ManuallyRouted="false" />
+        <AssociationConnector Association="ELibraryModel.FK_book1" ManuallyRouted="false" />
         <AssociationConnector Association="ELibraryModel.FK_book" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ELibraryModel.BookRecord" Width="1.5" PointX="7.625" PointY="1.125" />
-        <EntityTypeShape EntityType="ELibraryModel.FavoriteBook" Width="1.5" PointX="8.25" PointY="3.375" />
-        <AssociationConnector Association="ELibraryModel.FK_book1" />
-        <AssociationConnector Association="ELibraryModel.FK_book2" />
-        <AssociationConnector Association="ELibraryModel.FK_user" />
-        <EntityTypeShape EntityType="ELibraryModel.PurchaseRecord" Width="1.5" PointX="3" PointY="5" />
-        <EntityTypeShape EntityType="ELibraryModel.PurchaseRecordBook" Width="1.5" PointX="8.25" PointY="6.25" />
+        <AssociationConnector Association="ELibraryModel.FK_book2" ManuallyRouted="false" />
+        <AssociationConnector Association="ELibraryModel.FK_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ELibraryModel.FK_user1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ELibraryModel.PurchaseRecordBook" Width="1.5" PointX="10.5" PointY="7.75" />
         <AssociationConnector Association="ELibraryModel.FK_book3" />
         <AssociationConnector Association="ELibraryModel.FK_record" />
-        <AssociationConnector Association="ELibraryModel.FK_user1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

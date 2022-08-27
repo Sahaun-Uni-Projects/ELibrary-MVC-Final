@@ -24,11 +24,12 @@ namespace ELibrary.Models
         public Nullable<int> user_ { get; set; }
         public Nullable<System.DateTime> date_ { get; set; }
         public string trx { get; set; }
+        public Nullable<int> price { get; set; }
         public string address_ { get; set; }
         public Nullable<int> confirmed { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseRecordBook> PurchaseRecordBooks { get; set; }
-        public virtual User User { get; set; }
     }
 }

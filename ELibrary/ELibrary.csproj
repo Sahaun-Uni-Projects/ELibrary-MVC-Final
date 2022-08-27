@@ -139,6 +139,7 @@
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\NoPermissionController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -155,7 +156,6 @@
     </Compile>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\PurchaseInfo.cs" />
     <Compile Include="Models\FavoriteBook.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -177,6 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PurchaseInfo.cs" />
     <Compile Include="Models\PurchaseRecord.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -264,6 +265,7 @@
     <Content Include="Views\NoPermission\Index.cshtml" />
     <Content Include="Views\Edit\User_.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Record\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

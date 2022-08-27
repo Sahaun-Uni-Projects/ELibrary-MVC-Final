@@ -57,6 +57,7 @@
           <Property Name="user_" Type="int" />
           <Property Name="date_" Type="date" />
           <Property Name="trx" Type="varchar" MaxLength="50" />
+          <Property Name="price" Type="int" />
           <Property Name="address_" Type="text" />
           <Property Name="confirmed" Type="int" />
         </EntityType>
@@ -234,6 +235,16 @@
           <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Books" Relationship="Self.FK_author" FromRole="Authors" ToRole="Books" />
         </EntityType>
+        <EntityType Name="BookRecord">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book1" Relationship="Self.FK_book1" FromRole="BookRecords" ToRole="Books" />
+        </EntityType>
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="id" />
@@ -245,10 +256,20 @@
           <Property Name="author" Type="Int32" Nullable="false" />
           <Property Name="category" Type="Int32" />
           <NavigationProperty Name="Author1" Relationship="Self.FK_author" FromRole="Books" ToRole="Authors" />
+          <NavigationProperty Name="BookRecords" Relationship="Self.FK_book1" FromRole="Books" ToRole="BookRecords" />
           <NavigationProperty Name="FeaturedBooks" Relationship="Self.FK_book" FromRole="Books" ToRole="FeaturedBooks" />
-          <NavigationProperty Name="BookRecords" Relationship="ELibraryModel.FK_book1" FromRole="Book" ToRole="BookRecord" />
-          <NavigationProperty Name="FavoriteBooks" Relationship="ELibraryModel.FK_book2" FromRole="Book" ToRole="FavoriteBook" />
+          <NavigationProperty Name="FavoriteBooks" Relationship="Self.FK_book2" FromRole="Books" ToRole="FavoriteBooks" />
           <NavigationProperty Name="PurchaseRecordBooks" Relationship="ELibraryModel.FK_book3" FromRole="Book" ToRole="PurchaseRecordBook" />
+        </EntityType>
+        <EntityType Name="FavoriteBook">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book" Type="Int32" Nullable="false" />
+          <Property Name="user_" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book1" Relationship="Self.FK_book2" FromRole="FavoriteBooks" ToRole="Books" />
+          <NavigationProperty Name="User" Relationship="Self.FK_user" FromRole="FavoriteBooks" ToRole="Users" />
         </EntityType>
         <EntityType Name="FeaturedBook">
           <Key>
@@ -258,6 +279,20 @@
           <Property Name="book" Type="Int32" Nullable="false" />
           <Property Name="date_" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Book1" Relationship="Self.FK_book" FromRole="FeaturedBooks" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="PurchaseRecord">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_" Type="Int32" />
+          <Property Name="date_" Type="DateTime" Precision="0" />
+          <Property Name="trx" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="address_" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="confirmed" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_user1" FromRole="PurchaseRecord" ToRole="Users" />
+          <NavigationProperty Name="PurchaseRecordBooks" Relationship="ELibraryModel.FK_record" FromRole="PurchaseRecord" ToRole="PurchaseRecordBook" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -272,8 +307,8 @@
           <Property Name="address_" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="image_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="type_" Type="Int32" />
-          <NavigationProperty Name="FavoriteBooks" Relationship="ELibraryModel.FK_user" FromRole="User" ToRole="FavoriteBook" />
-          <NavigationProperty Name="PurchaseRecords" Relationship="ELibraryModel.FK_user1" FromRole="User" ToRole="PurchaseRecord" />
+          <NavigationProperty Name="FavoriteBooks" Relationship="Self.FK_user" FromRole="Users" ToRole="FavoriteBooks" />
+          <NavigationProperty Name="PurchaseRecords" Relationship="Self.FK_user1" FromRole="Users" ToRole="PurchaseRecord" />
         </EntityType>
         <Association Name="FK_author">
           <End Role="Authors" Type="Self.Author" Multiplicity="1" />
@@ -284,6 +319,18 @@
             </Principal>
             <Dependent Role="Books">
               <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_book1">
+          <End Role="Books" Type="Self.Book" Multiplicity="1" />
+          <End Role="BookRecords" Type="Self.BookRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BookRecords">
+              <PropertyRef Name="book" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -299,34 +346,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_book2">
+          <End Role="Books" Type="Self.Book" Multiplicity="1" />
+          <End Role="FavoriteBooks" Type="Self.FavoriteBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FavoriteBooks">
+              <PropertyRef Name="book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="FavoriteBooks" Type="Self.FavoriteBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FavoriteBooks">
+              <PropertyRef Name="user_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user1">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PurchaseRecord" Type="Self.PurchaseRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchaseRecord">
+              <PropertyRef Name="user_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ELibraryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="BookRecords" EntityType="Self.BookRecord" />
           <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="FavoriteBooks" EntityType="Self.FavoriteBook" />
           <EntitySet Name="FeaturedBooks" EntityType="Self.FeaturedBook" />
+          <EntitySet Name="PurchaseRecords" EntityType="Self.PurchaseRecord" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_author" Association="Self.FK_author">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
+          <AssociationSet Name="FK_book1" Association="Self.FK_book1">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="BookRecords" EntitySet="BookRecords" />
+          </AssociationSet>
           <AssociationSet Name="FK_book" Association="Self.FK_book">
             <End Role="Books" EntitySet="Books" />
             <End Role="FeaturedBooks" EntitySet="FeaturedBooks" />
           </AssociationSet>
-          <EntitySet Name="BookRecords" EntityType="ELibraryModel.BookRecord" />
-          <EntitySet Name="FavoriteBooks" EntityType="ELibraryModel.FavoriteBook" />
-          <AssociationSet Name="FK_book1" Association="ELibraryModel.FK_book1">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="BookRecord" EntitySet="BookRecords" />
+          <AssociationSet Name="FK_book2" Association="Self.FK_book2">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="FavoriteBooks" EntitySet="FavoriteBooks" />
           </AssociationSet>
-          <AssociationSet Name="FK_book2" Association="ELibraryModel.FK_book2">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="FavoriteBook" EntitySet="FavoriteBooks" />
+          <AssociationSet Name="FK_user" Association="Self.FK_user">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FavoriteBooks" EntitySet="FavoriteBooks" />
           </AssociationSet>
-          <AssociationSet Name="FK_user" Association="ELibraryModel.FK_user">
-            <End Role="User" EntitySet="Users" />
-            <End Role="FavoriteBook" EntitySet="FavoriteBooks" />
+          <AssociationSet Name="FK_user1" Association="Self.FK_user1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PurchaseRecord" EntitySet="PurchaseRecords" />
           </AssociationSet>
-          <EntitySet Name="PurchaseRecords" EntityType="ELibraryModel.PurchaseRecord" />
           <EntitySet Name="PurchaseRecordBooks" EntityType="ELibraryModel.PurchaseRecordBook" />
           <AssociationSet Name="FK_book3" Association="ELibraryModel.FK_book3">
             <End Role="Book" EntitySet="Books" />
@@ -336,80 +423,7 @@
             <End Role="PurchaseRecord" EntitySet="PurchaseRecords" />
             <End Role="PurchaseRecordBook" EntitySet="PurchaseRecordBooks" />
           </AssociationSet>
-          <AssociationSet Name="FK_user1" Association="ELibraryModel.FK_user1">
-            <End Role="User" EntitySet="Users" />
-            <End Role="PurchaseRecord" EntitySet="PurchaseRecords" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="BookRecord">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="book" Type="Int32" Nullable="false" />
-          <Property Name="quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Book1" Relationship="ELibraryModel.FK_book1" FromRole="BookRecord" ToRole="Book" />
-          <Property Name="price" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FavoriteBook">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="book" Type="Int32" Nullable="false" />
-          <Property Name="user_" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Book1" Relationship="ELibraryModel.FK_book2" FromRole="FavoriteBook" ToRole="Book" />
-          <NavigationProperty Name="User" Relationship="ELibraryModel.FK_user" FromRole="FavoriteBook" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_book1">
-          <End Type="ELibraryModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="ELibraryModel.BookRecord" Role="BookRecord" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="BookRecord">
-              <PropertyRef Name="book" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_book2">
-          <End Type="ELibraryModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="ELibraryModel.FavoriteBook" Role="FavoriteBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="FavoriteBook">
-              <PropertyRef Name="book" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_user">
-          <End Type="ELibraryModel.User" Role="User" Multiplicity="1" />
-          <End Type="ELibraryModel.FavoriteBook" Role="FavoriteBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="FavoriteBook">
-              <PropertyRef Name="user_" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PurchaseRecord">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_" Type="Int32" />
-          <Property Name="date_" Type="DateTime" Precision="0" />
-          <Property Name="trx" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="address_" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="confirmed" Type="Int32" />
-          <NavigationProperty Name="PurchaseRecordBooks" Relationship="ELibraryModel.FK_record" FromRole="PurchaseRecord" ToRole="PurchaseRecordBook" />
-          <NavigationProperty Name="User" Relationship="ELibraryModel.FK_user1" FromRole="PurchaseRecord" ToRole="User" />
-        </EntityType>
         <EntityType Name="PurchaseRecordBook">
           <Key>
             <PropertyRef Name="id" />
@@ -445,18 +459,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_user1">
-          <End Type="ELibraryModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ELibraryModel.PurchaseRecord" Role="PurchaseRecord" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PurchaseRecord">
-              <PropertyRef Name="user_" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -472,6 +474,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BookRecords">
+            <EntityTypeMapping TypeName="ELibraryModel.BookRecord">
+              <MappingFragment StoreEntitySet="BookRecords">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="book" ColumnName="book" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="ELibraryModel.Book">
               <MappingFragment StoreEntitySet="Books">
@@ -484,12 +496,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FavoriteBooks">
+            <EntityTypeMapping TypeName="ELibraryModel.FavoriteBook">
+              <MappingFragment StoreEntitySet="FavoriteBooks">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="book" ColumnName="book" />
+                <ScalarProperty Name="user_" ColumnName="user_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FeaturedBooks">
             <EntityTypeMapping TypeName="ELibraryModel.FeaturedBook">
               <MappingFragment StoreEntitySet="FeaturedBooks">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="book" ColumnName="book" />
                 <ScalarProperty Name="date_" ColumnName="date_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRecords">
+            <EntityTypeMapping TypeName="ELibraryModel.PurchaseRecord">
+              <MappingFragment StoreEntitySet="PurchaseRecord">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_" ColumnName="user_" />
+                <ScalarProperty Name="date_" ColumnName="date_" />
+                <ScalarProperty Name="trx" ColumnName="trx" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="address_" ColumnName="address_" />
+                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -505,37 +539,6 @@
                 <ScalarProperty Name="address_" ColumnName="address_" />
                 <ScalarProperty Name="image_" ColumnName="image_" />
                 <ScalarProperty Name="type_" ColumnName="type_" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BookRecords">
-            <EntityTypeMapping TypeName="ELibraryModel.BookRecord">
-              <MappingFragment StoreEntitySet="BookRecords">
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="book" ColumnName="book" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FavoriteBooks">
-            <EntityTypeMapping TypeName="ELibraryModel.FavoriteBook">
-              <MappingFragment StoreEntitySet="FavoriteBooks">
-                <ScalarProperty Name="user_" ColumnName="user_" />
-                <ScalarProperty Name="book" ColumnName="book" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PurchaseRecords">
-            <EntityTypeMapping TypeName="ELibraryModel.PurchaseRecord">
-              <MappingFragment StoreEntitySet="PurchaseRecord">
-                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
-                <ScalarProperty Name="address_" ColumnName="address_" />
-                <ScalarProperty Name="trx" ColumnName="trx" />
-                <ScalarProperty Name="date_" ColumnName="date_" />
-                <ScalarProperty Name="user_" ColumnName="user_" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

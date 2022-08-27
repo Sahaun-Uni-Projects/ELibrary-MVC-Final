@@ -32,6 +32,8 @@ namespace ELibrary.Controllers
 
         public ActionResult Validate(PurchaseInfo info) {
             string trxID = info.trxID;
+            Cart cart = (Cart)Session["cart"];
+
             if (!string.IsNullOrEmpty(trxID)) {
                 User sessionUser = (User)Session["user"];
 
@@ -39,14 +41,25 @@ namespace ELibrary.Controllers
                     user_ = sessionUser.id,
                     date_ = DateTime.Now,
                     trx = trxID,
+                    price = cart.GetCost(),
                     address_ = sessionUser.address_,
                     confirmed = 0
                 };
-                
+
+                foreach (CartItem item in cart.CartItems) {
+                    PurchaseRecordBook recordBook = new PurchaseRecordBook() {
+                        record = record.id,
+                        book = item.book.id,
+                        quantity = item.quantity
+                    };
+                    db.PurchaseRecordBooks.Add(recordBook);
+                }
+
                 db.PurchaseRecords.Add(record);
                 db.SaveChanges();
             }
-            ((Cart)Session["cart"]).Clear();
+
+            cart.Clear();
             return RedirectToAction("Index");
         }
     }
