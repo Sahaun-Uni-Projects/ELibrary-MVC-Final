@@ -1,8 +1,83 @@
-﻿
+﻿@model ELibrary.Models.User
+
 @{
-    ViewBag.Title = "User_";
+    ViewBag.Title = "Edit User";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new ELibrary.Models.ELibraryEntities();
+    var users = db.Users.ToList();
 }
 
-<h2>User_</h2>
+<h2>@Model.fullname</h2>
 
+@using (Html.BeginForm("UserUpdate", "Edit", new { id = Model.id }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    <div class="row">
+        <div class="col-lg-2">Title</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(u => u.email)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Title</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(u => u.fullname)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Title</div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(u => u.address_)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Description</div>
+        <div class="col-lg-10">
+            @Html.TextAreaFor(u => u.phone)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Description</div>
+        <div class="col-lg-10">
+            @Html.TextAreaFor(u => u.pass)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-2">Description</div>
+        <div class="col-lg-10">
+            @Html.TextAreaFor(u => u.joindate, new { @disabled = "disabled" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+    <br />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ELibrary.Models.User user in users) {
+                <tr>
+                    <th scope="row">@user.id</th>
+                    <th scope="row">@user.email</th>
+                    <td>@user.fullname</td>
+                    <td>
+                        <a class="btn btn-primary" href="/Edit/User_/@user.id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

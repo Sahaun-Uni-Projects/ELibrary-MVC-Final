@@ -15,7 +15,7 @@ namespace ELibrary.Controllers
         {
             User user = (User)Session["user"];
             if (user != null) {
-                User userCheck = db.Users.FirstOrDefault(u => u.email == user.email);
+                User userCheck = db.Users.FirstOrDefault(u => u.id == user.id);
                 if (userCheck != null) {
                     return View(user);
                 }

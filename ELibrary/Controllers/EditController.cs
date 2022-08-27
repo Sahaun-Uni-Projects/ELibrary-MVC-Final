@@ -36,11 +36,11 @@ namespace ELibrary.Controllers
             return ((author == null) ? (ActionResult)HttpNotFound() : View(author));
         }
 
-        public ActionResult User_(string email) {
+        public ActionResult User_(int? id) {
             if (!IsAdminSession()) return RedirectToAction("Index", "NoPermission");
 
-            if (String.IsNullOrEmpty(email)) email = db.Users.First().email;
-            var user = db.Users.FirstOrDefault(u => u.email == email);
+            int _id = id ?? 1;
+            var user = db.Users.FirstOrDefault(u => u.id == _id);
             return ((user == null) ? (ActionResult)HttpNotFound() : View(user));
         }
 
@@ -69,16 +69,17 @@ namespace ELibrary.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserUpdate(string email, User user) {
+        public ActionResult UserUpdate(int id, User user) {
             if (!IsAdminSession()) return RedirectToAction("Index", "NoPermission");
 
-            User newUser = db.Users.FirstOrDefault(u => u.email == email);
+            User newUser = db.Users.FirstOrDefault(u => u.id == id);
+            newUser.email = user.email;
             newUser.fullname = user.fullname;
             newUser.address_ = user.address_;
             newUser.phone = user.phone;
             newUser.pass = user.pass;
             db.SaveChanges();
-            return RedirectToAction("User", new { email = email });
+            return RedirectToAction("User", new { id = id });
         }
     }
 }

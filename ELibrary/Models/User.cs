@@ -14,6 +14,7 @@ namespace ELibrary.Models
     
     public partial class User
     {
+        public int id { get; set; }
         public string email { get; set; }
         public string pass { get; set; }
         public Nullable<System.DateTime> joindate { get; set; }

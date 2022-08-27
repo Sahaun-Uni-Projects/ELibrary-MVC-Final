@@ -28,7 +28,7 @@ namespace ELibrary.Controllers
                     }
 
                     user.email = user.email.ToLower();
-                    User userCheck = db.Users.FirstOrDefault(u => u.email == user.email);
+                    User userCheck = db.Users.FirstOrDefault(u => u.id == user.id);
                     if (userCheck != null) {
                         TempData["alert"] = "Email exists already";
                         return RedirectToAction("Index", "Login");
@@ -39,7 +39,7 @@ namespace ELibrary.Controllers
 
                     db.Users.Add(user);
                     db.SaveChanges();
-                    TempData["alert"] = $"User account for {user.email} created successfully!";
+                    TempData["alert"] = $"User account for {user.fullname} created successfully!";
                 } catch (Exception e) {
                     TempData["alert"] = e.Message;
                 }
