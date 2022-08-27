@@ -32,9 +32,17 @@ namespace ELibrary.Controllers
 
             PurchaseRecord record = db.PurchaseRecords.FirstOrDefault(r => r.id == id);
             if (record != null) {
+                var items = db.PurchaseRecordBooks.Where(r => r.record == record.id).ToList();
+                foreach (var item in items) {
+                    var bookRecord = db.BookRecords.FirstOrDefault(r => r.Book1.id == item.Book1.id);
+                    bookRecord.quantity -= item.quantity ?? 0;
+                    db.SaveChanges();
+                }
+
                 record.confirmed = 1;
                 db.SaveChanges();
             }
+
             return RedirectToAction("Index");
         }
 
@@ -46,6 +54,7 @@ namespace ELibrary.Controllers
                 record.confirmed = 2;
                 db.SaveChanges();
             }
+
             return RedirectToAction("Index");
         }
     }

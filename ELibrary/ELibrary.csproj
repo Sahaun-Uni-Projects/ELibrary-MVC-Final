@@ -266,6 +266,7 @@
     <Content Include="Views\Edit\User_.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Record\Index.cshtml" />
+    <Content Include="Views\Edit\Featured.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
