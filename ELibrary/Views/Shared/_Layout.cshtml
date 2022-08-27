@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ELibrary.Models.User sessionUser = (ELibrary.Models.User)Session["user"];
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("ELibrary", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -27,13 +31,23 @@
 
                 <ul class="nav navbar-nav float-right pull-right">
                     <li class="nav-item dropdown">
-                        <a class="dropdown-toggle" href="#" id="nav-profile-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item" type="button">@Html.ActionLink("Login", "Index", "Home")</li>
-                            <li class="dropdown-item" type="button">@Html.ActionLink("Sign Up", "Index", "Home")</li>
-                        </ul>
+                        @if (Session["user"] == null) {
+                            <a class="dropdown-toggle" href="#" id="nav-profile-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profile
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Login", "Index", "Login")</li>
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Register", "Index", "Register")</li>
+                            </ul>
+                        } else {
+                            <a class="dropdown-toggle" href="#" id="nav-profile-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @sessionUser.user_fullname
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Profile", "Index", "Profile")</li>
+                                <li class="dropdown-item" type="button">@Html.ActionLink("Logout", "Index", "Logout")</li>
+                            </ul>
+                        }
                     </li>
                 </ul>
             </div>

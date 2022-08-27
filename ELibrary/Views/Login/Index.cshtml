@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Register</h2>
+<h2>Login</h2>
 
-@using (Html.BeginForm("Index", "Register", FormMethod.Post)) {
+@using (Html.BeginForm("Index", "Login", FormMethod.Post)) {
     @Html.AntiForgeryToken();
 
     <div class="row">
@@ -16,17 +16,6 @@
         </div>
         <div class="col-md-10">
             @Html.EditorFor(model => model.user_email, new {
-                htmlAttributes = new { @class = "form-control" }
-            })
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-2">
-            <h4>Full Name</h4>
-        </div>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.user_fullname, new {
                 htmlAttributes = new { @class = "form-control" }
             })
         </div>
@@ -46,7 +35,7 @@
     <br />
     <div class="row">
         <div class="col-md-6 pt-5">
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </div>
 }
