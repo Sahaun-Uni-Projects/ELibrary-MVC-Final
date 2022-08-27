@@ -109,7 +109,7 @@ namespace ELibrary.Controllers
             newUser.phone = user.phone;
             newUser.pass = user.pass;
             db.SaveChanges();
-            return RedirectToAction("User", new { id = id });
+            return RedirectToAction("User_", new { id = id });
         }
     }
 }
