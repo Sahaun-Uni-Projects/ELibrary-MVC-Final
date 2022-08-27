@@ -35,16 +35,6 @@
                     @if ((sessionUser != null) && (sessionUser.type_ == 1)) {
                         <li>@Html.ActionLink("Records", "Index", "Record")</li>
 
-                        <!-->li class="nav-item dropdown">
-                        <a class="dropdown-toggle" href="#" id="nav-add-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Add
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item" type="button">@Html.ActionLink("Books", "Book", "Add")</li>
-                            <li class="dropdown-item" type="button">@Html.ActionLink("Authors", "Author", "Add")</li>
-                        </ul>
-                        </!li-->
-
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="#" id="nav-edit-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Edit
