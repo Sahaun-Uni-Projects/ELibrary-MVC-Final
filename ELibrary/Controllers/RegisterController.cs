@@ -34,11 +34,14 @@ namespace ELibrary.Controllers
                         return RedirectToAction("Index", "Login");
                     }
 
+                    user.joindate = DateTime.Now;
+                    user.type_ = 0;
+
                     db.Users.Add(user);
                     db.SaveChanges();
+                    TempData["alert"] = $"User account for {user.email} created successfully!";
                 } catch (Exception e) {
                     TempData["alert"] = e.Message;
-
                 }
             }
             return View();

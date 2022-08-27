@@ -32,6 +32,11 @@
                 </ul>
 
                 <ul class="nav navbar-nav float-right pull-right">
+                    @if ((sessionUser != null) && (sessionUser.type_ == 1)) {
+                        <li class="nav-item dropdown">
+                            @Html.ActionLink("Edit", "Index", "Edit")
+                        </li>
+                    }
                     <li class="nav-item dropdown">
                         @if (sessionUser == null) {
                             <a class="dropdown-toggle" href="#" id="nav-profile-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
