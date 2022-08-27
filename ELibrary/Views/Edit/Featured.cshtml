@@ -9,39 +9,37 @@
 
 <h2>Featured</h2>
 
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Author</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (ELibrary.Models.Book book in books) {
-                Boolean found = false;
-                foreach (ELibrary.Models.Book f in featured) {
-                    if (f.id == book.id) {
-                        found = true;
-                    }
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ELibrary.Models.Book book in books) {
+            Boolean found = false;
+            foreach (ELibrary.Models.Book f in featured) {
+                if (f.id == book.id) {
+                    found = true;
                 }
-                <tr>
-                    <th scope="row">@book.id</th>
-                    <td>@book.name</td>
-                    <td>@book.Author1.name</td>
-                    <td>
-                        <a class="btn btn-primary" href="/Edit/FeaturedToggle/@book.id">
-                            @if (found) {
-                                <p>Remove</p>
-                            } else {
-                                <p>Add</p>
-                            }
-                        </a>
-                    </td>
-                </tr>
             }
-        </tbody>
-    </table>
-}
+            <tr>
+                <th scope="row">@book.id</th>
+                <td>@book.name</td>
+                <td>@book.Author1.name</td>
+                <td>
+                    <a class="btn btn-primary" href="/Edit/FeaturedToggle/@book.id">
+                        @if (found) {
+                            <p>Remove</p>
+                        } else {
+                            <p>Add</p>
+                        }
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
